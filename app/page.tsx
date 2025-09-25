@@ -125,6 +125,7 @@ export default function Home() {
                 voltage={voltage}
                 tunnelingActive={tunnelingActive}
                 current={current}
+                equation={equation}
               />
               
               {/* Mathematical Components - moved closer to visualization */}

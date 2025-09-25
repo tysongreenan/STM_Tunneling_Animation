@@ -8,6 +8,7 @@ interface STMVisualizationProps {
   voltage: number
   tunnelingActive: boolean
   current: number
+  equation: string
 }
 
 interface Electron {
@@ -24,7 +25,8 @@ export default function STMVisualization({
   distance, 
   voltage, 
   tunnelingActive, 
-  current 
+  current,
+  equation
 }: STMVisualizationProps) {
   const [electrons, setElectrons] = useState<Electron[]>([])
   const [particleId, setParticleId] = useState(0)
@@ -33,6 +35,62 @@ export default function STMVisualization({
 
   const atomPositions = [2, 4, 6, 8]
   const tipY = 0.5 + distance
+
+  // Get equation-specific visual properties
+  const getEquationStyle = () => {
+    switch (equation) {
+      case 'quantum':
+        return {
+          tipColor: 'border-b-cyan-400',
+          tipGlow: 'drop-shadow(0 0 15px #06b6d4)',
+          atomColor: 'bg-cyan-400',
+          barrierColor: 'via-cyan-400/60',
+          electronColor: '#06b6d4'
+        }
+      case 'exponential':
+        return {
+          tipColor: 'border-b-purple-400',
+          tipGlow: 'drop-shadow(0 0 15px #a855f7)',
+          atomColor: 'bg-purple-400',
+          barrierColor: 'via-purple-400/60',
+          electronColor: '#a855f7'
+        }
+      case 'power':
+        return {
+          tipColor: 'border-b-green-400',
+          tipGlow: 'drop-shadow(0 0 15px #4ade80)',
+          atomColor: 'bg-green-400',
+          barrierColor: 'via-green-400/60',
+          electronColor: '#4ade80'
+        }
+      case 'gaussian':
+        return {
+          tipColor: 'border-b-yellow-400',
+          tipGlow: 'drop-shadow(0 0 15px #facc15)',
+          atomColor: 'bg-yellow-400',
+          barrierColor: 'via-yellow-400/60',
+          electronColor: '#facc15'
+        }
+      case 'custom':
+        return {
+          tipColor: 'border-b-pink-400',
+          tipGlow: 'drop-shadow(0 0 15px #ec4899)',
+          atomColor: 'bg-pink-400',
+          barrierColor: 'via-pink-400/60',
+          electronColor: '#ec4899'
+        }
+      default:
+        return {
+          tipColor: 'border-b-pink-400',
+          tipGlow: 'drop-shadow(0 0 15px #ec4899)',
+          atomColor: 'bg-purple-400',
+          barrierColor: 'via-purple-400/60',
+          electronColor: '#ec4899'
+        }
+    }
+  }
+
+  const equationStyle = getEquationStyle()
 
   // Generate electron particles when tunneling is active
   useEffect(() => {
@@ -132,7 +190,7 @@ export default function STMVisualization({
         {atomPositions.map((x, i) => (
           <motion.div
             key={i}
-            className="absolute w-4 h-4 bg-purple-400 rounded-full glow-effect"
+            className={`absolute w-4 h-4 ${equationStyle.atomColor} rounded-full glow-effect`}
             style={{
               left: `${(x / 10) * 100}%`,
               bottom: '2rem',
@@ -152,7 +210,7 @@ export default function STMVisualization({
 
         {/* STM Tip */}
         <motion.div
-          className="absolute w-0 h-0 border-l-4 border-r-4 border-b-8 border-transparent border-b-pink-400 glow-effect"
+          className={`absolute w-0 h-0 border-l-4 border-r-4 border-b-8 border-transparent ${equationStyle.tipColor} glow-effect`}
           style={{
             left: '50%',
             bottom: `${(tipY / 8) * 100}%`,
@@ -203,8 +261,9 @@ export default function STMVisualization({
               
               {/* Main Electron */}
               <motion.div
-                className="absolute w-3 h-3 bg-cyan-glow rounded-full glow-effect"
+                className="absolute w-3 h-3 rounded-full glow-effect"
                 style={{
+                  backgroundColor: equationStyle.electronColor,
                   left: `${(electron.trail[electron.trail.length - 1]?.x / 10) * 100}%`,
                   bottom: `${(electron.trail[electron.trail.length - 1]?.y / 8) * 100}%`,
                   transform: 'translate(-50%, 50%)'
@@ -235,6 +294,18 @@ export default function STMVisualization({
               : 'bg-gray-700/50 text-gray-300 border border-gray-600/30'
           }`}>
             {tunnelingActive ? 'TUNNELING ACTIVE' : 'TUNNELING INACTIVE'}
+          </div>
+        </div>
+
+        {/* Equation Display */}
+        <div className="absolute top-16 right-4 bg-gray-800/80 backdrop-blur-sm rounded-lg px-3 py-2">
+          <div className="text-xs text-gray-300">Active Equation</div>
+          <div className="text-sm font-mono text-white">
+            {equation === 'quantum' && 'Quantum Tunneling'}
+            {equation === 'exponential' && 'Exponential'}
+            {equation === 'power' && 'Power Law'}
+            {equation === 'gaussian' && 'Gaussian'}
+            {equation === 'custom' && 'Custom'}
           </div>
         </div>
 
