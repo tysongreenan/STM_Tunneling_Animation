@@ -16,7 +16,7 @@ export default function Home() {
   const [showControls, setShowControls] = useState(true)
   const [tunnelingActive, setTunnelingActive] = useState(false)
   const [current, setCurrent] = useState(0.0)
-  const [equation, setEquation] = useState('exponential')
+  const [equation, setEquation] = useState('quantum')
   const [equationParams, setEquationParams] = useState({
     I0: 1.0,
     alpha: 2.0,

@@ -11,7 +11,7 @@ interface EquationEditorProps {
 
 export default function EquationEditor({ onEquationChange, currentParams, currentEquation }: EquationEditorProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedEquation, setSelectedEquation] = useState(currentEquation)
+  const [selectedEquation, setSelectedEquation] = useState(currentEquation || 'quantum')
   const [customParams, setCustomParams] = useState(currentParams)
 
   // Sync selectedEquation with currentEquation prop
