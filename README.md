@@ -5,7 +5,7 @@ An interactive web-based learning tool for understanding Scanning Tunneling Micr
 ## Features
 
 - **Interactive Visualization**: Real-time STM tip movement with quantum tunneling effects
-- **Mathematical Models**: Multiple equation types (exponential, power law, Gaussian, custom)
+- **Mathematical Models**: Multiple equation types including proper quantum tunneling (T(E) = 4e^(-2Kd)), exponential, power law, Gaussian, custom
 - **Parameter Adjustment**: Real-time tuning of equation parameters with live curve updates
 - **Educational Content**: Comprehensive information about STM principles and mathematical models
 - **Customizable Controls**: Adjust tip distance, voltage, and observe tunneling current
@@ -89,7 +89,7 @@ npm start
 1. **Adjust Tip Distance**: Use the slider to move the STM tip closer or farther from the surface
 2. **Control Voltage**: Modify the applied voltage to see its effect on tunneling
 3. **Watch Tunneling**: Observe electron particles tunneling when the tip is close enough (< 3nm)
-4. **Mathematical Models**: Select different equation types (exponential, power law, Gaussian, custom)
+4. **Mathematical Models**: Select different equation types including proper quantum tunneling (T(E) = 4e^(-2Kd)), exponential, power law, Gaussian, custom)
 5. **Parameter Tuning**: Adjust equation parameters to see their effect on the tunneling curve
 6. **Mathematical Visualization**: View live plots of current vs distance with mathematical properties
 7. **Learn**: Click "Show Info" to access educational content about STM and mathematical models
@@ -100,6 +100,22 @@ npm start
 - **STM Principle**: Uses tunneling current to image surfaces at atomic resolution
 - **Distance Dependence**: Tunneling current decreases exponentially with tip-sample distance
 - **Voltage Effect**: Higher voltage increases the tunneling current
+
+## Quantum Tunneling Physics
+
+The simulator includes the proper quantum mechanical transmission probability:
+
+**T(E) = 4e^(-2Kd)**
+
+Where:
+- **K = √(2m(V-E))/ℏ** (decay constant)
+- **m**: Electron mass (9.109 × 10⁻³¹ kg)
+- **V**: Work function (typically 4-5 eV for metals)
+- **E**: Applied bias voltage
+- **ℏ**: Reduced Planck constant (1.055 × 10⁻³⁴ J⋅s)
+- **d**: Tip-sample distance
+
+This equation accurately describes how electrons tunnel through the potential barrier between the STM tip and sample surface.
 
 ## Educational Value
 
