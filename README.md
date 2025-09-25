@@ -5,8 +5,11 @@ An interactive web-based learning tool for understanding Scanning Tunneling Micr
 ## Features
 
 - **Interactive Visualization**: Real-time STM tip movement with quantum tunneling effects
-- **Educational Content**: Comprehensive information about STM principles and applications
+- **Mathematical Models**: Multiple equation types (exponential, power law, Gaussian, custom)
+- **Parameter Adjustment**: Real-time tuning of equation parameters with live curve updates
+- **Educational Content**: Comprehensive information about STM principles and mathematical models
 - **Customizable Controls**: Adjust tip distance, voltage, and observe tunneling current
+- **Mathematical Visualization**: Live plotting of current vs distance curves with derivatives
 - **Modern UI**: Built with Next.js 14, Tailwind CSS, and Framer Motion
 - **Responsive Design**: Works on desktop and mobile devices
 
@@ -86,7 +89,10 @@ npm start
 1. **Adjust Tip Distance**: Use the slider to move the STM tip closer or farther from the surface
 2. **Control Voltage**: Modify the applied voltage to see its effect on tunneling
 3. **Watch Tunneling**: Observe electron particles tunneling when the tip is close enough (< 3nm)
-4. **Learn**: Click "Show Info" to access educational content about STM
+4. **Mathematical Models**: Select different equation types (exponential, power law, Gaussian, custom)
+5. **Parameter Tuning**: Adjust equation parameters to see their effect on the tunneling curve
+6. **Mathematical Visualization**: View live plots of current vs distance with mathematical properties
+7. **Learn**: Click "Show Info" to access educational content about STM and mathematical models
 
 ## Key Concepts
 
@@ -100,7 +106,11 @@ npm start
 This tool helps students and researchers understand:
 - The physics behind STM operation
 - Quantum tunneling phenomena
+- Mathematical modeling of physical systems
+- Different equation types and their parameters
 - The relationship between distance, voltage, and current in STM
+- Real-time visualization of mathematical functions
+- Derivatives and mathematical properties of curves
 - Real-world applications of scanning probe microscopy
 
 ## Contributing
