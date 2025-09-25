@@ -48,11 +48,29 @@ npm run dev
 
 ## Deployment
 
-### Vercel (Recommended)
+### Quick Deploy to Vercel
 
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Deploy with zero configuration
+1. **Create GitHub Repository:**
+   ```bash
+   # Create a new repository on GitHub, then:
+   git remote add origin https://github.com/YOUR_USERNAME/stm-tunneling-simulator.git
+   git branch -M main
+   git push -u origin main
+   ```
+
+2. **Deploy with Vercel:**
+   - Go to [vercel.com](https://vercel.com)
+   - Sign in with GitHub
+   - Click "New Project"
+   - Import your repository
+   - Click "Deploy"
+
+### Alternative: Vercel CLI
+
+```bash
+npm i -g vercel
+vercel
+```
 
 ### Manual Build
 
@@ -60,6 +78,8 @@ npm run dev
 npm run build
 npm start
 ```
+
+📖 **Detailed deployment guide:** See [DEPLOYMENT.md](./DEPLOYMENT.md)
 
 ## How to Use
 
