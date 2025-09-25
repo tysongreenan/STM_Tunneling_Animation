@@ -22,8 +22,8 @@ export default function InfoPanel() {
     },
     {
       icon: BookOpen,
-      title: "Applications",
-      content: "STM is used to study surface structures, atomic arrangements, electronic properties, and even manipulate individual atoms. It's essential in nanotechnology, materials science, and fundamental physics research."
+      title: "Mathematical Models",
+      content: "Different mathematical models describe tunneling behavior: exponential decay (standard STM), power laws, Gaussian distributions, and custom equations. Each model has specific parameters that affect the current-distance relationship."
     }
   ]
 
@@ -34,7 +34,7 @@ export default function InfoPanel() {
       className="info-card"
     >
       <h2 className="text-2xl font-light text-white-glow mb-6 text-center" style={{ fontFamily: 'var(--font-geist-sans)' }}>
-        Learn About Scanning Tunneling Microscopy
+        Learn About STM and Mathematical Models
       </h2>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -84,8 +84,10 @@ export default function InfoPanel() {
         <div className="space-y-2 text-sm text-gray-300">
           <p><span className="text-cyan-glow">•</span> Adjust the tip distance slider to see how tunneling current changes</p>
           <p><span className="text-cyan-glow">•</span> Watch the electron particles tunnel from tip to surface atoms</p>
-          <p><span className="text-cyan-glow">•</span> Notice how current increases exponentially as distance decreases</p>
-          <p><span className="text-cyan-glow">•</span> Use the voltage control to see its effect on tunneling</p>
+          <p><span className="text-cyan-glow">•</span> Try different mathematical models (exponential, power law, Gaussian)</p>
+          <p><span className="text-cyan-glow">•</span> Adjust equation parameters to see their effect on the curve</p>
+          <p><span className="text-cyan-glow">•</span> Observe the mathematical properties and derivatives</p>
+          <p><span className="text-cyan-glow">•</span> Use the custom equation to experiment with your own formulas</p>
         </div>
       </div>
     </motion.div>
