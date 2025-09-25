@@ -69,27 +69,29 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
   return (
     <div className="info-card">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-medium text-white-glow flex items-center gap-2" style={{ fontFamily: 'var(--font-geist-sans)' }}>
-          <span className="text-purple-glow">📊</span>
+        <h3 className="text-lg font-medium text-white flex items-center gap-2" style={{ fontFamily: 'var(--font-geist-sans)' }}>
+          <span className="text-purple-400">📊</span>
           Mathematical Models
         </h3>
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2 bg-gray-700/50 hover:bg-gray-600/50 rounded-lg transition-colors"
+          className="btn-icon accessibility-focus"
+          aria-label={isOpen ? 'Close mathematical model parameters' : 'Open mathematical model parameters'}
+          aria-expanded={isOpen}
         >
-          <span className="text-white-glow">⚙️</span>
+          <span className="text-white">⚙️</span>
         </motion.button>
       </div>
 
       {/* Current Equation Display */}
-      <div className="mb-4 p-3 bg-gray-800/50 rounded-lg border border-purple-glow/20">
+      <div className="mb-4 p-3 bg-gray-800/50 rounded-lg border border-purple-400/20">
         <div className="flex items-center gap-2 mb-2">
-          <span className="text-purple-glow">📈</span>
-          <span className="text-sm font-medium text-white-glow">{currentEquation.name}</span>
+          <span className="text-purple-400">📈</span>
+          <span className="text-sm font-medium text-white">{currentEquation.name}</span>
         </div>
-        <div className="text-lg font-mono text-cyan-glow mb-1">{currentEquation.formula}</div>
+        <div className="text-lg font-mono text-cyan-400 mb-1">{currentEquation.formula}</div>
         <div className="text-xs text-gray-400">{currentEquation.description}</div>
       </div>
 
@@ -99,7 +101,8 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
         <select
           value={selectedEquation}
           onChange={(e) => setSelectedEquation(e.target.value)}
-          className="w-full p-2 bg-gray-800 border border-gray-600 rounded-lg text-white-glow focus:border-purple-glow focus:outline-none"
+          className="w-full p-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:border-purple-400 focus:outline-none accessibility-focus"
+          aria-label="Select mathematical equation type"
         >
           {Object.entries(equations).map(([key, equation]) => (
             <option key={key} value={key}>{equation.name}</option>
@@ -115,7 +118,7 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
       >
         <div className="space-y-4">
           <h4 className="text-sm font-medium text-gray-300 flex items-center gap-2">
-            <span className="text-yellow-glow">⚡</span>
+            <span className="text-yellow-400">⚡</span>
             Adjust Parameters
           </h4>
           
@@ -123,7 +126,7 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
             <div key={param} className="space-y-2">
               <div className="flex justify-between items-center">
                 <label className="text-sm text-gray-300">{config.label}</label>
-                <span className="text-sm font-mono text-purple-glow">
+                <span className="text-sm font-mono text-purple-400">
                   {customParams[param]?.toFixed(2) || config.value.toFixed(2)}
                 </span>
               </div>
@@ -134,7 +137,11 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
                 step={config.step}
                 value={customParams[param] || config.value}
                 onChange={(e) => handleParamChange(param, parseFloat(e.target.value))}
-                className="w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer control-slider"
+                className="control-slider accessibility-focus"
+                aria-label={`Adjust ${config.label} from ${config.min} to ${config.max}`}
+                aria-valuemin={config.min}
+                aria-valuemax={config.max}
+                aria-valuenow={customParams[param] || config.value}
               />
               <div className="flex justify-between text-xs text-gray-500">
                 <span>{config.min}</span>
@@ -145,8 +152,8 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
         </div>
 
         {/* Mathematical Explanation */}
-        <div className="mt-4 p-3 bg-gradient-to-r from-purple-glow/10 to-cyan-glow/10 rounded-lg border border-purple-glow/20">
-          <h5 className="text-sm font-medium text-white-glow mb-2">Mathematical Explanation</h5>
+        <div className="mt-4 p-3 bg-gradient-to-r from-purple-400/10 to-cyan-400/10 rounded-lg border border-purple-400/20">
+          <h5 className="text-sm font-medium text-white mb-2">Mathematical Explanation</h5>
           <div className="text-xs text-gray-300 space-y-1">
             {selectedEquation === 'exponential' && (
               <>

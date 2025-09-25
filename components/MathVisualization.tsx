@@ -56,8 +56,8 @@ export default function MathVisualization({
 
   return (
     <div className="info-card">
-      <h3 className="text-lg font-medium text-white-glow mb-4 flex items-center gap-2" style={{ fontFamily: 'var(--font-geist-sans)' }}>
-        <span className="text-cyan-glow">📈</span>
+      <h3 className="text-lg font-medium text-white mb-4 flex items-center gap-2" style={{ fontFamily: 'var(--font-geist-sans)' }}>
+        <span className="text-cyan-400">📈</span>
         Mathematical Curve
       </h3>
 

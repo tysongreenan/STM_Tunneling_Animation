@@ -111,10 +111,10 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center"
           >
-            <h1 className="text-4xl md:text-6xl font-light text-white-glow mb-2" style={{ fontFamily: 'var(--font-geist-sans)' }}>
+            <h1 className="text-4xl md:text-6xl font-light text-white mb-2" style={{ fontFamily: 'var(--font-geist-sans)' }}>
               STM Tunneling Simulator
             </h1>
-            <p className="text-lg md:text-xl text-purple-glow/80 font-light" style={{ fontFamily: 'var(--font-geist-sans)' }}>
+            <p className="text-lg md:text-xl text-blue-400/90 font-light" style={{ fontFamily: 'var(--font-geist-sans)' }}>
               Interactive Quantum Tunneling with Mathematical Models
             </p>
           </motion.div>
@@ -168,7 +168,9 @@ export default function Home() {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowInfo(!showInfo)}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 bg-gray-800/50 hover:bg-gray-700/50 border border-gray-600/50 rounded-xl transition-colors"
+                className="btn-secondary w-full flex items-center justify-center gap-2 accessibility-focus"
+                aria-label={showInfo ? 'Hide educational information panel' : 'Show educational information panel'}
+                aria-expanded={showInfo}
               >
                 <Info className="w-5 h-5" />
                 {showInfo ? 'Hide Info' : 'Show Info'}

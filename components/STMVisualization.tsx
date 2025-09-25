@@ -113,26 +113,26 @@ export default function STMVisualization({
   }, [tunnelingActive, distance, current])
 
   return (
-    <div className="relative bg-gray-900/30 backdrop-blur-sm border border-gray-700/50 rounded-2xl p-8 overflow-hidden">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-glow/5 via-transparent to-cyan-glow/5" />
+      <div className="relative bg-gray-800/40 backdrop-blur-lg border border-gray-600/30 rounded-2xl p-8 overflow-hidden">
+        {/* Background gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/10 via-transparent to-blue-500/10" />
       
       {/* Title */}
       <div className="relative z-10 text-center mb-8">
-        <h2 className="text-2xl font-light text-white-glow mb-2">STM Scanning Process</h2>
-        <p className="text-purple-glow/70">Watch quantum tunneling in real-time</p>
+        <h2 className="text-2xl font-light text-white mb-2">STM Scanning Process</h2>
+        <p className="text-blue-400/70">Watch quantum tunneling in real-time</p>
       </div>
 
       {/* Visualization Container */}
       <div className="relative h-96 bg-black/20 rounded-xl border border-gray-700/30 overflow-hidden">
         {/* Sample Surface */}
-        <div className="absolute bottom-8 left-0 right-0 h-1 bg-white-glow/60" />
+        <div className="absolute bottom-8 left-0 right-0 h-1 bg-white/60" />
         
         {/* Surface Atoms */}
         {atomPositions.map((x, i) => (
           <motion.div
             key={i}
-            className="absolute w-4 h-4 bg-purple-glow rounded-full glow-effect"
+            className="absolute w-4 h-4 bg-purple-400 rounded-full glow-effect"
             style={{
               left: `${(x / 10) * 100}%`,
               bottom: '2rem',
@@ -144,15 +144,15 @@ export default function STMVisualization({
             }}
             transition={{ duration: 1, repeat: tunnelingActive ? Infinity : 0 }}
           >
-            <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-white-glow/70">
-              Atom {i + 1}
-            </div>
+              <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-white/70">
+                Atom {i + 1}
+              </div>
           </motion.div>
         ))}
 
         {/* STM Tip */}
         <motion.div
-          className="absolute w-0 h-0 border-l-4 border-r-4 border-b-8 border-transparent border-b-pink-glow glow-effect"
+          className="absolute w-0 h-0 border-l-4 border-r-4 border-b-8 border-transparent border-b-pink-400 glow-effect"
           style={{
             left: '50%',
             bottom: `${(tipY / 8) * 100}%`,
@@ -166,9 +166,9 @@ export default function STMVisualization({
           }}
           transition={{ duration: 0.5, repeat: tunnelingActive ? Infinity : 0 }}
         >
-          <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-pink-glow/80 whitespace-nowrap">
-            STM Tip
-          </div>
+            <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs text-pink-400/80 whitespace-nowrap">
+              STM Tip
+            </div>
         </motion.div>
 
         {/* Tunneling Barrier */}
@@ -223,8 +223,8 @@ export default function STMVisualization({
 
         {/* Distance Indicator */}
         <div className="absolute top-4 left-4 bg-gray-800/80 backdrop-blur-sm rounded-lg px-3 py-2">
-          <div className="text-xs text-gray-300">Distance</div>
-          <div className="text-lg font-mono text-white-glow">{distance.toFixed(2)} nm</div>
+            <div className="text-xs text-gray-300">Distance</div>
+            <div className="text-lg font-mono text-white">{distance.toFixed(2)} nm</div>
         </div>
 
         {/* Status Indicator */}
@@ -249,12 +249,12 @@ export default function STMVisualization({
       {/* Real-time Data */}
       <div className="mt-6 grid grid-cols-2 gap-4">
         <div className="info-card">
-          <div className="text-sm text-gray-400 mb-1">Applied Voltage</div>
-          <div className="text-xl font-mono text-yellow-glow">{voltage.toFixed(2)} V</div>
+            <div className="text-sm text-gray-400 mb-1">Applied Voltage</div>
+            <div className="text-xl font-mono text-yellow-400">{voltage.toFixed(2)} V</div>
         </div>
         <div className="info-card">
           <div className="text-sm text-gray-400 mb-1">Tunneling Current</div>
-          <div className="text-xl font-mono text-green-glow">{current.toFixed(3)} nA</div>
+          <div className="text-xl font-mono text-green-400">{current.toFixed(3)} nA</div>
         </div>
       </div>
 
