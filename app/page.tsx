@@ -11,7 +11,7 @@ import MathVisualization from '@/components/MathVisualization'
 
 export default function Home() {
   const [isPlaying, setIsPlaying] = useState(false)
-  const [distance, setDistance] = useState(8.0)
+  const [distance, setDistance] = useState(2.4)
   const [voltage, setVoltage] = useState(0.5)
   const [showInfo, setShowInfo] = useState(false)
   const [showControls, setShowControls] = useState(true)
