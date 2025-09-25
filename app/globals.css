@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+  }
+  
+  body {
+    @apply bg-dark-bg text-white-glow;
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+    background-image: 
+      radial-gradient(circle at 20% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 40%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
+  }
+  
+  .font-mono {
+    font-family: var(--font-geist-mono), 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+  }
+  
+  p, span, div {
+    font-family: var(--font-geist-sans), system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .glow-effect {
+    filter: drop-shadow(0 0 10px currentColor);
+  }
+  
+  .control-slider {
+    @apply w-full h-2 bg-gray-700 rounded-lg appearance-none cursor-pointer;
+  }
+  
+  .control-slider::-webkit-slider-thumb {
+    @apply appearance-none w-5 h-5 bg-purple-glow rounded-full cursor-pointer;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+  }
+  
+  .control-slider::-moz-range-thumb {
+    @apply w-5 h-5 bg-purple-glow rounded-full cursor-pointer border-0;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+  }
+  
+  .info-card {
+    @apply bg-gray-900/50 backdrop-blur-sm border border-gray-700/50 rounded-xl p-4;
+  }
+  
+  .status-indicator {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm font-medium;
+  }
+  
+  .status-active {
+    @apply bg-green-glow/20 text-green-glow border border-green-glow/30;
+  }
+  
+  .status-inactive {
+    @apply bg-gray-700/50 text-gray-300 border border-gray-600/30;
+  }
+}
