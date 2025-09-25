@@ -24,6 +24,16 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
         d: { label: 'd (Distance)', value: 1.0, min: 0.1, max: 5.0, step: 0.1 }
       }
     },
+    quantum: {
+      name: 'Quantum Tunneling',
+      formula: 'T(E) = 4e^(-2Kd), K = √(2m(V-E))/ℏ',
+      description: 'Proper quantum mechanical tunneling equation',
+      params: {
+        I0: { label: 'I₀ (Base Current)', value: 1.0, min: 0.1, max: 10.0, step: 0.1 },
+        workFunction: { label: 'Work Function (eV)', value: 4.5, min: 3.0, max: 6.0, step: 0.1 },
+        d: { label: 'd (Distance)', value: 1.0, min: 0.1, max: 5.0, step: 0.1 }
+      }
+    },
     power: {
       name: 'Power Law',
       formula: 'I = A × d^(-n)',
@@ -160,6 +170,14 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
                 <p>• <strong>Exponential decay:</strong> Current decreases exponentially with distance</p>
                 <p>• <strong>α (alpha):</strong> Controls how quickly current drops off</p>
                 <p>• <strong>I₀:</strong> Maximum current at zero distance</p>
+              </>
+            )}
+            {selectedEquation === 'quantum' && (
+              <>
+                <p>• <strong>Quantum tunneling:</strong> T(E) = 4e^(-2Kd) where K = √(2m(V-E))/ℏ</p>
+                <p>• <strong>Work Function:</strong> Energy barrier height (typically 4-5 eV for metals)</p>
+                <p>• <strong>K:</strong> Decay constant depends on barrier height and electron energy</p>
+                <p>• <strong>Transmission:</strong> Probability of electron tunneling through barrier</p>
               </>
             )}
             {selectedEquation === 'power' && (

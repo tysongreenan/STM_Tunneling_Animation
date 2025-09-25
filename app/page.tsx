@@ -20,6 +20,7 @@ export default function Home() {
   const [equationParams, setEquationParams] = useState({
     I0: 1.0,
     alpha: 2.0,
+    workFunction: 4.5, // eV - typical work function for metals
     A: 1.0,
     n: 2.0,
     mu: 2.0,
@@ -38,9 +39,23 @@ export default function Home() {
   const calculateCurrent = (distance: number, equationType: string, params: Record<string, number>): number => {
     if (distance >= tunnelingThreshold) return 0.0
     
+    // Convert distance from nm to meters
+    const d = distance * 1e-9
+    
     switch (equationType) {
       case 'exponential':
+        // Standard exponential approximation: I = I₀ * e^(-αd)
         return params.I0 * Math.exp(-params.alpha * distance)
+      case 'quantum':
+        // Proper quantum tunneling: T(E) = 4e^(-2Kd) where K = √(2m(V-E))/ℏ
+        // For STM: V is work function (~4-5 eV), E is bias voltage, m is electron mass
+        const hbar = 1.054571817e-34 // J⋅s
+        const m = 9.10938356e-31 // kg (electron mass)
+        const V = params.workFunction * 1.602176634e-19 // Convert eV to J
+        const E = voltage * 1.602176634e-19 // Convert V to J
+        const K = Math.sqrt(2 * m * (V - E)) / hbar // m⁻¹
+        const transmission = 4 * Math.exp(-2 * K * d)
+        return params.I0 * transmission * 1e9 // Convert to nA
       case 'power':
         return params.A * Math.pow(distance, -params.n)
       case 'gaussian':

@@ -20,9 +20,21 @@ export default function MathVisualization({
 
   // Calculate equation values
   const calculateEquation = (distance: number, equationType: string, params: Record<string, number>): number => {
+    // Convert distance from nm to meters
+    const d = distance * 1e-9
+    
     switch (equationType) {
       case 'exponential':
         return params.I0 * Math.exp(-params.alpha * distance)
+      case 'quantum':
+        // Proper quantum tunneling: T(E) = 4e^(-2Kd) where K = √(2m(V-E))/ℏ
+        const hbar = 1.054571817e-34 // J⋅s
+        const m = 9.10938356e-31 // kg (electron mass)
+        const V = params.workFunction * 1.602176634e-19 // Convert eV to J
+        const E = 0.5 * 1.602176634e-19 // Convert V to J (using 0.5V as default)
+        const K = Math.sqrt(2 * m * (V - E)) / hbar // m⁻¹
+        const transmission = 4 * Math.exp(-2 * K * d)
+        return params.I0 * transmission * 1e9 // Convert to nA
       case 'power':
         return params.A * Math.pow(distance, -params.n)
       case 'gaussian':
@@ -150,6 +162,7 @@ export default function MathVisualization({
         </div>
         <div className="text-sm font-mono text-cyan-glow mb-2">
           {equation === 'exponential' && 'I = I₀ × e^(-αd)'}
+          {equation === 'quantum' && 'T(E) = 4e^(-2Kd), K = √(2m(V-E))/ℏ'}
           {equation === 'power' && 'I = A × d^(-n)'}
           {equation === 'gaussian' && 'I = I₀ × e^(-(d-μ)²/2σ²)'}
           {equation === 'custom' && 'I = A × e^(-B×d) + C × d^(-2)'}
@@ -168,6 +181,14 @@ export default function MathVisualization({
               <p>• <strong>Exponential decay:</strong> Rate of change = -α × I</p>
               <p>• <strong>Half-life:</strong> d₁/₂ = ln(2)/α = {(Math.log(2) / (params.alpha || 2)).toFixed(2)} nm</p>
               <p>• <strong>Slope at current point:</strong> {(-(params.alpha || 2) * currentPoint.y).toFixed(3)} nA/nm</p>
+            </>
+          )}
+          {equation === 'quantum' && (
+            <>
+              <p>• <strong>Transmission probability:</strong> T(E) = 4e^(-2Kd)</p>
+              <p>• <strong>Decay constant:</strong> K = √(2m(V-E))/ℏ = {((Math.sqrt(2 * 9.10938356e-31 * ((params.workFunction || 4.5) - 0.5) * 1.602176634e-19)) / 1.054571817e-34 / 1e9).toFixed(2)} nm⁻¹</p>
+              <p>• <strong>Work function:</strong> V = {(params.workFunction || 4.5).toFixed(1)} eV</p>
+              <p>• <strong>Barrier height:</strong> V-E = {((params.workFunction || 4.5) - 0.5).toFixed(1)} eV</p>
             </>
           )}
           {equation === 'power' && (
