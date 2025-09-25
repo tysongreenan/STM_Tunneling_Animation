@@ -33,22 +33,6 @@ export default function Home() {
   const maxDistance = 8.0
   const tunnelingThreshold = 3.0
 
-  // Auto-play animation
-  useEffect(() => {
-    if (isPlaying) {
-      const interval = setInterval(() => {
-        setDistance(prev => {
-          const newDistance = prev - 0.1
-          if (newDistance <= minDistance) {
-            setIsPlaying(false)
-            return minDistance
-          }
-          return newDistance
-        })
-      }, 100)
-      return () => clearInterval(interval)
-    }
-  }, [isPlaying, minDistance])
 
   // Calculate current based on selected equation
   const calculateCurrent = (distance: number, equationType: string, params: Record<string, number>): number => {
@@ -92,7 +76,7 @@ export default function Home() {
 
   const handleEquationChange = (newEquation: string, newParams: Record<string, number>) => {
     setEquation(newEquation)
-    setEquationParams(newParams)
+    setEquationParams(prev => ({ ...prev, ...newParams }))
   }
 
   return (

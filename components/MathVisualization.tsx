@@ -166,28 +166,28 @@ export default function MathVisualization({
           {equation === 'exponential' && (
             <>
               <p>• <strong>Exponential decay:</strong> Rate of change = -α × I</p>
-              <p>• <strong>Half-life:</strong> d₁/₂ = ln(2)/α = {(Math.log(2) / params.alpha).toFixed(2)} nm</p>
-              <p>• <strong>Slope at current point:</strong> {(-params.alpha * currentPoint.y).toFixed(3)} nA/nm</p>
+              <p>• <strong>Half-life:</strong> d₁/₂ = ln(2)/α = {(Math.log(2) / (params.alpha || 2)).toFixed(2)} nm</p>
+              <p>• <strong>Slope at current point:</strong> {(-(params.alpha || 2) * currentPoint.y).toFixed(3)} nA/nm</p>
             </>
           )}
           {equation === 'power' && (
             <>
               <p>• <strong>Power law:</strong> Rate of change = -n × A × d^(-n-1)</p>
-              <p>• <strong>Exponent:</strong> n = {params.n.toFixed(1)}</p>
-              <p>• <strong>Slope at current point:</strong> {(-params.n * params.A * Math.pow(currentDistance, -params.n - 1)).toFixed(3)} nA/nm</p>
+              <p>• <strong>Exponent:</strong> n = {(params.n || 2).toFixed(1)}</p>
+              <p>• <strong>Slope at current point:</strong> {(-(params.n || 2) * (params.A || 1) * Math.pow(currentDistance, -(params.n || 2) - 1)).toFixed(3)} nA/nm</p>
             </>
           )}
           {equation === 'gaussian' && (
             <>
-              <p>• <strong>Peak at:</strong> μ = {params.mu.toFixed(2)} nm</p>
-              <p>• <strong>Standard deviation:</strong> σ = {params.sigma.toFixed(2)} nm</p>
-              <p>• <strong>Full width at half max:</strong> {2.355 * params.sigma} nm</p>
+              <p>• <strong>Peak at:</strong> μ = {(params.mu || 2).toFixed(2)} nm</p>
+              <p>• <strong>Standard deviation:</strong> σ = {(params.sigma || 0.5).toFixed(2)} nm</p>
+              <p>• <strong>Full width at half max:</strong> {(2.355 * (params.sigma || 0.5)).toFixed(2)} nm</p>
             </>
           )}
           {equation === 'custom' && (
             <>
-              <p>• <strong>Exponential term:</strong> A × e^(-B×d) = {params.a * Math.exp(-params.b * currentDistance).toFixed(3)}</p>
-              <p>• <strong>Power term:</strong> C × d^(-2) = {params.c * Math.pow(currentDistance, -2).toFixed(3)}</p>
+              <p>• <strong>Exponential term:</strong> A × e^(-B×d) = {((params.a || 1) * Math.exp(-(params.b || 1) * currentDistance)).toFixed(3)}</p>
+              <p>• <strong>Power term:</strong> C × d^(-2) = {((params.c || 1) * Math.pow(currentDistance, -2)).toFixed(3)}</p>
               <p>• <strong>Combined:</strong> {currentPoint.y.toFixed(3)} nA</p>
             </>
           )}
