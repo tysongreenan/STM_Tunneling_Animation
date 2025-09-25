@@ -1,17 +1,23 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 interface EquationEditorProps {
   onEquationChange: (equation: string, params: Record<string, number>) => void
   currentParams: Record<string, number>
+  currentEquation: string
 }
 
-export default function EquationEditor({ onEquationChange, currentParams }: EquationEditorProps) {
+export default function EquationEditor({ onEquationChange, currentParams, currentEquation }: EquationEditorProps) {
   const [isOpen, setIsOpen] = useState(false)
-  const [selectedEquation, setSelectedEquation] = useState('exponential')
+  const [selectedEquation, setSelectedEquation] = useState(currentEquation)
   const [customParams, setCustomParams] = useState(currentParams)
+
+  // Sync selectedEquation with currentEquation prop
+  useEffect(() => {
+    setSelectedEquation(currentEquation)
+  }, [currentEquation])
 
   const equations = {
     exponential: {
@@ -74,7 +80,7 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
     onEquationChange(selectedEquation, newParams)
   }
 
-  const currentEquation = equations[selectedEquation as keyof typeof equations]
+  const selectedEquationData = equations[selectedEquation as keyof typeof equations]
 
   return (
     <div className="info-card">
@@ -99,10 +105,10 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
       <div className="mb-4 p-3 bg-gray-800/50 rounded-lg border border-purple-400/20">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-purple-400">📈</span>
-          <span className="text-sm font-medium text-white">{currentEquation.name}</span>
+          <span className="text-sm font-medium text-white">{selectedEquationData.name}</span>
         </div>
-        <div className="text-lg font-mono text-cyan-400 mb-1">{currentEquation.formula}</div>
-        <div className="text-xs text-gray-400">{currentEquation.description}</div>
+        <div className="text-lg font-mono text-cyan-400 mb-1">{selectedEquationData.formula}</div>
+        <div className="text-xs text-gray-400">{selectedEquationData.description}</div>
       </div>
 
       {/* Equation Selector */}
@@ -110,7 +116,16 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
         <label className="block text-sm font-medium text-gray-300 mb-2">Select Equation Type</label>
         <select
           value={selectedEquation}
-          onChange={(e) => setSelectedEquation(e.target.value)}
+          onChange={(e) => {
+            const newEquation = e.target.value
+            setSelectedEquation(newEquation)
+            // Get the parameters for the new equation
+            const equationParams = equations[newEquation as keyof typeof equations]?.params || {}
+            const newParams = Object.fromEntries(
+              Object.entries(equationParams).map(([key, config]) => [key, config.value])
+            )
+            onEquationChange(newEquation, newParams)
+          }}
           className="w-full p-2 bg-gray-800 border border-gray-600 rounded-lg text-white focus:border-purple-400 focus:outline-none accessibility-focus"
           aria-label="Select mathematical equation type"
         >
@@ -132,7 +147,7 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
             Adjust Parameters
           </h4>
           
-          {Object.entries(currentEquation.params).map(([param, config]) => (
+          {Object.entries(selectedEquationData.params).map(([param, config]) => (
             <div key={param} className="space-y-2">
               <div className="flex justify-between items-center">
                 <label className="text-sm text-gray-300">{config.label}</label>

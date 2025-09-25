@@ -133,6 +133,7 @@ export default function Home() {
                 <EquationEditor
                   onEquationChange={handleEquationChange}
                   currentParams={equationParams}
+                  currentEquation={equation}
                 />
                 
                 <MathVisualization
