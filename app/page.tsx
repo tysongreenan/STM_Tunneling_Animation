@@ -10,7 +10,6 @@ import EquationEditor from '@/components/EquationEditor'
 import MathVisualization from '@/components/MathVisualization'
 
 export default function Home() {
-  const [isPlaying, setIsPlaying] = useState(false)
   const [distance, setDistance] = useState(2.4)
   const [voltage, setVoltage] = useState(0.5)
   const [showInfo, setShowInfo] = useState(false)
@@ -82,18 +81,13 @@ export default function Home() {
     }
   }, [distance, tunnelingThreshold, equation, equationParams])
 
-  const handlePlay = () => {
-    setIsPlaying(!isPlaying)
-  }
 
   const handleReset = () => {
-    setIsPlaying(false)
     setDistance(maxDistance)
   }
 
   const handleDistanceChange = (newDistance: number) => {
     setDistance(newDistance)
-    setIsPlaying(false)
   }
 
   const handleEquationChange = (newEquation: string, newParams: Record<string, number>) => {
@@ -133,6 +127,21 @@ export default function Home() {
                 tunnelingActive={tunnelingActive}
                 current={current}
               />
+              
+              {/* Mathematical Components - moved closer to visualization */}
+              <div className="mt-6 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <EquationEditor
+                  onEquationChange={handleEquationChange}
+                  currentParams={equationParams}
+                />
+                
+                <MathVisualization
+                  equation={equation}
+                  params={equationParams}
+                  currentDistance={distance}
+                  currentCurrent={current}
+                />
+              </div>
             </div>
 
             {/* Control Panels */}
@@ -144,23 +153,9 @@ export default function Home() {
                 voltage={voltage}
                 current={current}
                 tunnelingActive={tunnelingActive}
-                isPlaying={isPlaying}
                 onDistanceChange={handleDistanceChange}
                 onVoltageChange={setVoltage}
-                onPlay={handlePlay}
                 onReset={handleReset}
-              />
-
-              <EquationEditor
-                onEquationChange={handleEquationChange}
-                currentParams={equationParams}
-              />
-
-              <MathVisualization
-                equation={equation}
-                params={equationParams}
-                currentDistance={distance}
-                currentCurrent={current}
               />
 
               {/* Info Toggle */}

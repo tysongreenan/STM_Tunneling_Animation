@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Play, Pause, RotateCcw, Zap, Gauge } from 'lucide-react'
+import { RotateCcw, Zap, Gauge } from 'lucide-react'
 
 interface ControlPanelProps {
   distance: number
@@ -10,10 +10,8 @@ interface ControlPanelProps {
   voltage: number
   current: number
   tunnelingActive: boolean
-  isPlaying: boolean
   onDistanceChange: (distance: number) => void
   onVoltageChange: (voltage: number) => void
-  onPlay: () => void
   onReset: () => void
 }
 
@@ -24,10 +22,8 @@ export default function ControlPanel({
   voltage,
   current,
   tunnelingActive,
-  isPlaying,
   onDistanceChange,
   onVoltageChange,
-  onPlay,
   onReset
 }: ControlPanelProps) {
   return (
@@ -39,30 +35,14 @@ export default function ControlPanel({
           Controls
         </h3>
         
-        {/* Play/Pause/Reset */}
-        <div className="flex gap-2 mb-6">
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={onPlay}
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl font-medium transition-colors accessibility-focus ${
-              isPlaying
-                ? 'bg-red-600/20 text-red-400 border border-red-600/30 hover:bg-red-600/30'
-                : 'bg-green-600/20 text-green-400 border border-green-600/30 hover:bg-green-600/30'
-            }`}
-            aria-label={isPlaying ? 'Pause automatic scanning animation' : 'Start automatic scanning animation'}
-            aria-pressed={isPlaying}
-          >
-            {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-            {isPlaying ? 'Pause' : 'Play'}
-          </motion.button>
-          
+        {/* Reset Button */}
+        <div className="flex justify-end mb-6">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={onReset}
             className="btn-icon accessibility-focus"
-            aria-label="Reset tip to maximum distance and stop animation"
+            aria-label="Reset tip to maximum distance"
           >
             <RotateCcw className="w-4 h-4" />
           </motion.button>
