@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { Calculator, Settings, Function, Zap } from 'lucide-react'
 import { useState } from 'react'
 
 interface EquationEditorProps {
@@ -71,7 +70,7 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
     <div className="info-card">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-medium text-white-glow flex items-center gap-2" style={{ fontFamily: 'var(--font-geist-sans)' }}>
-          <Calculator className="w-5 h-5 text-purple-glow" />
+          <span className="text-purple-glow">📊</span>
           Mathematical Models
         </h3>
         <motion.button
@@ -80,14 +79,14 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
           onClick={() => setIsOpen(!isOpen)}
           className="p-2 bg-gray-700/50 hover:bg-gray-600/50 rounded-lg transition-colors"
         >
-          <Settings className="w-4 h-4" />
+          <span className="text-white-glow">⚙️</span>
         </motion.button>
       </div>
 
       {/* Current Equation Display */}
       <div className="mb-4 p-3 bg-gray-800/50 rounded-lg border border-purple-glow/20">
         <div className="flex items-center gap-2 mb-2">
-          <Function className="w-4 h-4 text-purple-glow" />
+          <span className="text-purple-glow">📈</span>
           <span className="text-sm font-medium text-white-glow">{currentEquation.name}</span>
         </div>
         <div className="text-lg font-mono text-cyan-glow mb-1">{currentEquation.formula}</div>
@@ -116,7 +115,7 @@ export default function EquationEditor({ onEquationChange, currentParams }: Equa
       >
         <div className="space-y-4">
           <h4 className="text-sm font-medium text-gray-300 flex items-center gap-2">
-            <Zap className="w-4 h-4" />
+            <span className="text-yellow-glow">⚡</span>
             Adjust Parameters
           </h4>
           

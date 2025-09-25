@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { TrendingUp, Calculator } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 interface MathVisualizationProps {
@@ -58,7 +57,7 @@ export default function MathVisualization({
   return (
     <div className="info-card">
       <h3 className="text-lg font-medium text-white-glow mb-4 flex items-center gap-2" style={{ fontFamily: 'var(--font-geist-sans)' }}>
-        <TrendingUp className="w-5 h-5 text-cyan-glow" />
+        <span className="text-cyan-glow">📈</span>
         Mathematical Curve
       </h3>
 
@@ -146,7 +145,7 @@ export default function MathVisualization({
       {/* Equation Display */}
       <div className="p-3 bg-gray-800/50 rounded-lg border border-purple-glow/20">
         <div className="flex items-center gap-2 mb-2">
-          <Calculator className="w-4 h-4 text-purple-glow" />
+          <span className="text-purple-glow">🧮</span>
           <span className="text-sm font-medium text-white-glow">Current Equation</span>
         </div>
         <div className="text-sm font-mono text-cyan-glow mb-2">
